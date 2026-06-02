@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const TARGET_YEAR = 2017;
+const TARGET_YEAR = 2010;
 const DURATION_MS = 2200;
 
 export default function CountdownSection() {
