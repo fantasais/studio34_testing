@@ -107,7 +107,6 @@ function HeroSection() {
         }}
       />
 
-      {/* Centered typographic statement */}
       <div
         style={{
           position: "absolute",
@@ -125,7 +124,6 @@ function HeroSection() {
           pointerEvents: "none",
         }}
       >
-        {/* Line 1 */}
         <div
           style={{
             display: "flex",
@@ -167,7 +165,7 @@ function HeroSection() {
             DECORATION
           </span>
         </div>
-        {/* Line 2 */}
+
         <div
           style={{
             display: "flex",
@@ -301,9 +299,7 @@ function Meaning34Section() {
       style={{ scrollMarginTop: "80px", background: "oklch(0.97 0.006 80)" }}
     >
       <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-24 py-24 md:py-32">
-        {/* SectionHeader moved into left column — grid starts here */}
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-10 lg:gap-14 items-center">
-          {/* LEFT COLUMN: heading + subheading + paragraph */}
           <div className="flex flex-col gap-6">
             <SectionHeader
               eyebrow="पहचान — Identity"
@@ -350,7 +346,6 @@ function Meaning34Section() {
             </p>
           </div>
 
-          {/* RIGHT COLUMN: identity panel — no black background, ghost logo */}
           <div
             ref={ref}
             style={{
@@ -371,7 +366,6 @@ function Meaning34Section() {
                 padding: "clamp(1.5rem, 3vw, 2.25rem)",
               }}
             >
-              {/* Ghost logo background image */}
               <img
                 src="/assets/Studio34.webp"
                 alt=""
@@ -391,24 +385,22 @@ function Meaning34Section() {
                 }}
               />
 
-              {/* TOP child: eyebrow label */}
               <div style={{ position: "relative", zIndex: 1 }}>
-           <p
-  style={{
-    fontFamily: "Barlow, sans-serif",
-    fontWeight: 300,
-    letterSpacing: "0.22em",
-    fontSize: "0.66rem",
-    textTransform: "uppercase",
-    color: "oklch(0.97 0.006 80)",
-    marginBottom: "0",
-  }}
->
-  Identity Unveiled
-</p>
+                <p
+                  style={{
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 300,
+                    letterSpacing: "0.22em",
+                    fontSize: "0.66rem",
+                    textTransform: "uppercase",
+                    color: "oklch(0.97 0.006 80)",
+                    marginBottom: "0",
+                  }}
+                >
+                  Identity Unveiled
+                </p>
               </div>
 
-              {/* BOTTOM child: paragraph + CTA */}
               <div style={{ position: "relative", zIndex: 1 }}>
                 <p
                   style={{
@@ -506,7 +498,6 @@ function IndiaLensSection() {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(280px,0.85fr)_minmax(0,1fr)] gap-10 lg:gap-14 items-stretch">
-          {/* Left — Visual anchor, stretches to full column height */}
           <div
             style={{
               position: "relative",
@@ -533,15 +524,15 @@ function IndiaLensSection() {
             />
             <p
               style={{
-    fontFamily: "Noto Sans Devanagari, sans-serif",
-    fontWeight: 100,
-    fontSize: "clamp(3rem, 8vw, 6rem)",
-    color: "oklch(0.65 0.201 36.9)",
-    lineHeight: 1,
-    margin: 0,
-    position: "relative",
-    zIndex: 1,
-  }}
+                fontFamily: "Noto Sans Devanagari, sans-serif",
+                fontWeight: 100,
+                fontSize: "clamp(3rem, 8vw, 6rem)",
+                color: "oklch(0.65 0.201 36.9)",
+                lineHeight: 1,
+                margin: 0,
+                position: "relative",
+                zIndex: 1,
+              }}
             >
               भारत
             </p>
@@ -562,7 +553,6 @@ function IndiaLensSection() {
             </p>
           </div>
 
-          {/* Right — Text + principles */}
           <div
             ref={ref}
             style={{
@@ -667,7 +657,6 @@ function DualitySection() {
         }}
       />
 
-      {/* Two-line atmospheric statement */}
       <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-24 pt-20 md:pt-28 pb-10 md:pb-12">
         <p
           style={{
@@ -712,7 +701,6 @@ function DualitySection() {
         </p>
       </div>
 
-      {/* Full-width visual split — no container padding, bleeds edge to edge */}
       <div
         ref={ref}
         className="flex flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_7px_minmax(0,1fr)]"
@@ -723,7 +711,6 @@ function DualitySection() {
           minHeight: "clamp(340px, 48vw, 560px)",
         }}
       >
-        {/* Left — Craft / dark textured placeholder */}
         <div
           style={{
             position: "relative",
@@ -759,7 +746,7 @@ function DualitySection() {
               position: "absolute",
               inset: 0,
               background:
-                  "linear-gradient(to top, oklch(0.08 0.006 60 / 0.42) 0%, oklch(0.08 0.006 60 / 0.10) 46%, transparent 72%)",
+                "linear-gradient(to top, oklch(0.08 0.006 60 / 0.42) 0%, oklch(0.08 0.006 60 / 0.10) 46%, transparent 72%)",
               pointerEvents: "none",
               zIndex: 1,
             }}
@@ -781,13 +768,11 @@ function DualitySection() {
           </div>
         </div>
 
-        {/* Mobile-only horizontal divider */}
         <div
           className="lg:hidden"
           style={{ height: "10px", background: "oklch(0.65 0.201 36.9)" }}
         />
 
-        {/* Thick terracotta divider with glow — desktop only */}
         <div
           className="hidden lg:block"
           style={{
@@ -797,7 +782,6 @@ function DualitySection() {
           }}
         />
 
-        {/* Right — Precision / light grid placeholder */}
         <div
           style={{
             position: "relative",
@@ -833,7 +817,7 @@ function DualitySection() {
               position: "absolute",
               inset: 0,
               background:
-                  "linear-gradient(to top, oklch(0.08 0.006 60 / 0.42) 0%, oklch(0.08 0.006 60 / 0.10) 46%, transparent 72%)",
+                "linear-gradient(to top, oklch(0.08 0.006 60 / 0.42) 0%, oklch(0.08 0.006 60 / 0.10) 46%, transparent 72%)",
               pointerEvents: "none",
               zIndex: 1,
             }}
@@ -856,7 +840,6 @@ function DualitySection() {
         </div>
       </div>
 
-      {/* Bottom spacing */}
       <div style={{ height: "clamp(3rem, 6vw, 5rem)" }} />
     </section>
   );
@@ -940,7 +923,6 @@ function ProcessSection() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Changed from 4 * 26 + 100 = 204vh to 4 * 22 + 80 = 168vh for crisper scroll pace
   const sectionHeightVh = PROCESS_STEPS.length * 22 + 80;
 
   return (
@@ -991,11 +973,10 @@ function ProcessSection() {
           }}
         />
 
-          <div
+        <div
           className="mx-auto max-w-7xl px-6 md:px-16 lg:px-24 w-full"
           style={{ position: "relative", zIndex: 1 }}
         >
-          {/* Tightened from mb-8 md:mb-10 to mb-6 md:mb-8 */}
           <div className="mb-6 md:mb-8">
             <SectionHeader
               eyebrow="विचारधारा — Discipline"
@@ -1044,7 +1025,6 @@ function ProcessSection() {
                   pointerEvents: activeStep === idx ? "auto" : "none",
                 }}
               >
-                {/* Mobile layout */}
                 <div className="flex flex-col gap-3 md:hidden">
                   <p
                     style={{
@@ -1108,7 +1088,6 @@ function ProcessSection() {
                   </p>
                 </div>
 
-                {/* Desktop layout */}
                 <div
                   className="hidden md:grid"
                   style={{
@@ -1210,12 +1189,10 @@ function ProcessSection() {
                     </div>
                   </div>
                 </div>
-                {/* end desktop grid */}
               </div>
             ))}
           </div>
 
-          {/* Progress indicator with Step X of 4 counter */}
           <div
             style={{
               display: "flex",
@@ -1261,6 +1238,24 @@ function ProcessSection() {
 }
 
 function TurinClosingSection() {
+  const [copied, setCopied] = useState(false);
+
+  const email = "info@studio34.in";
+  const subject = "Project Enquiry — Studio34";
+  const gmailCompose = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+    email,
+  )}&su=${encodeURIComponent(subject)}`;
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      setCopied(false);
+    }
+  };
+
   return (
     <section
       id="ideology-closing"
@@ -1322,40 +1317,91 @@ function TurinClosingSection() {
           }}
         />
 
-        <a
-          href="mailto:info@studio34.in"
-          data-ocid="ideology.collaborate.button"
-          style={{
-            marginTop: "0.5rem",
-            display: "inline-block",
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 300,
-            letterSpacing: "0.28em",
-            fontSize: "clamp(0.65rem, 1.2vw, 0.78rem)",
-            textTransform: "uppercase",
-            color: "oklch(0.97 0.006 80)",
-            background: "oklch(0.12 0.006 60)",
-            border: "1px solid oklch(0.12 0.006 60)",
-            borderRadius: "2px",
-            padding: "1rem 2.75rem",
-            textDecoration: "none",
-            transition: "background 0.25s ease, border-color 0.25s ease",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.background =
-              "oklch(0.65 0.201 36.9)";
-            (e.currentTarget as HTMLAnchorElement).style.borderColor =
-              "oklch(0.65 0.201 36.9)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.background =
-              "oklch(0.12 0.006 60)";
-            (e.currentTarget as HTMLAnchorElement).style.borderColor =
-              "oklch(0.12 0.006 60)";
-          }}
-        >
-          Collaborate with Studio34
-        </a>
+        <div className="flex flex-col items-center gap-3">
+          <a
+            href={`mailto:${email}?subject=${encodeURIComponent(subject)}`}
+            data-ocid="ideology.collaborate.button"
+            style={{
+              marginTop: "0.5rem",
+              display: "inline-block",
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 300,
+              letterSpacing: "0.28em",
+              fontSize: "clamp(0.65rem, 1.2vw, 0.78rem)",
+              textTransform: "uppercase",
+              color: "oklch(0.97 0.006 80)",
+              background: "oklch(0.12 0.006 60)",
+              border: "1px solid oklch(0.12 0.006 60)",
+              borderRadius: "2px",
+              padding: "1rem 2.75rem",
+              textDecoration: "none",
+              transition: "background 0.25s ease, border-color 0.25s ease",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.background =
+                "oklch(0.65 0.201 36.9)";
+              (e.currentTarget as HTMLAnchorElement).style.borderColor =
+                "oklch(0.65 0.201 36.9)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLAnchorElement).style.background =
+                "oklch(0.12 0.006 60)";
+              (e.currentTarget as HTMLAnchorElement).style.borderColor =
+                "oklch(0.12 0.006 60)";
+            }}
+          >
+            Collaborate with Studio34
+          </a>
+
+          <div
+            className="flex flex-wrap items-center justify-center gap-3"
+            style={{
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 300,
+              fontSize: "0.72rem",
+              letterSpacing: "0.08em",
+              color: "oklch(0.42 0.006 62)",
+            }}
+          >
+            <span>Prefer browser email?</span>
+
+            <a
+              href={gmailCompose}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "oklch(0.57 0.135 38)",
+                textDecoration: "none",
+                textTransform: "uppercase",
+                letterSpacing: "0.14em",
+                fontSize: "0.68rem",
+              }}
+            >
+              Open in Gmail
+            </a>
+
+            <span style={{ color: "oklch(0.65 0.006 65)" }}>·</span>
+
+            <button
+              type="button"
+              onClick={handleCopyEmail}
+              style={{
+                background: "transparent",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+                color: "oklch(0.57 0.135 38)",
+                textTransform: "uppercase",
+                letterSpacing: "0.14em",
+                fontSize: "0.68rem",
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 300,
+              }}
+            >
+              {copied ? "Email copied" : "Copy email"}
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -1376,11 +1422,10 @@ export default function IdeologyPage() {
         }}
       />
 
-      {/* Section index — Ideology */}
-<nav
-  className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 flex-col gap-4 z-40 pointer-events-auto"
-  aria-label="Section index"
->
+      <nav
+        className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 flex-col gap-4 z-40 pointer-events-auto"
+        aria-label="Section index"
+      >
         {[
           { id: "meaning-34", label: "Identity" },
           { id: "process", label: "Process" },
@@ -1405,17 +1450,17 @@ export default function IdeologyPage() {
             }}
           >
             <span
-  style={{
-    width: "6px",
-    height: "6px",
-    borderRadius: "50%",
-    background: "oklch(0.65 0.201 36.9)",
-    flexShrink: 0,
-    display: "inline-block",
-  }}
-/>
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: "oklch(0.65 0.201 36.9)",
+                flexShrink: 0,
+                display: "inline-block",
+              }}
+            />
             <span
-               style={{
+              style={{
                 fontFamily: "Barlow, sans-serif",
                 fontWeight: 300,
                 fontSize: "0.68rem",
@@ -1429,6 +1474,7 @@ export default function IdeologyPage() {
           </a>
         ))}
       </nav>
+
       <Meaning34Section />
       <IndiaLensSection />
       <DualitySection />
