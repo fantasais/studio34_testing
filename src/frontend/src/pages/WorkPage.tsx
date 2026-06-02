@@ -1666,6 +1666,24 @@ function ClientsAct() {
 }
 
 function WorkCtaAct() {
+  const [copied, setCopied] = useState(false);
+
+  const email = "info@studio34.in";
+  const subject = "Project Enquiry — Studio34";
+  const gmailCompose = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+    email,
+  )}&su=${encodeURIComponent(subject)}`;
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      setCopied(false);
+    }
+  };
+
   return (
     <section
       id="work-contact"
@@ -1692,8 +1710,8 @@ function WorkCtaAct() {
           }}
         >
           <div className="flex flex-col items-center text-center gap-6 md:gap-8">
-          <div className="flex flex-col items-center text-center gap-3">
-    <h2
+            <div className="flex flex-col items-center text-center gap-3">
+              <h2
                 style={{
                   fontFamily: "Barlow, sans-serif",
                   fontWeight: 200,
@@ -1709,24 +1727,24 @@ function WorkCtaAct() {
               </h2>
 
               <p
-  style={{
-    fontFamily: "Barlow, sans-serif",
-    fontWeight: 300,
-    fontSize: "clamp(0.95rem, 1.25vw, 1.05rem)",
-    lineHeight: "1.9",
-    color: "oklch(0.42 0.006 62)",
-    maxWidth: "46ch",
-    margin: 0,
-    textAlign: "center",
-  }}
->
+                style={{
+                  fontFamily: "Barlow, sans-serif",
+                  fontWeight: 300,
+                  fontSize: "clamp(0.95rem, 1.25vw, 1.05rem)",
+                  lineHeight: "1.9",
+                  color: "oklch(0.42 0.006 62)",
+                  maxWidth: "46ch",
+                  margin: 0,
+                  textAlign: "center",
+                }}
+              >
                 Design / Development / Prototype — Let’s Talk.
               </p>
             </div>
 
             <div className="flex flex-col items-center gap-3">
               <a
-                href="mailto:info@studio34.in?subject=Project%20Enquiry%20%E2%80%94%20Studio34"
+                href={`mailto:${email}?subject=${encodeURIComponent(subject)}`}
                 data-ocid="work.contact.primary_button"
                 style={{
                   fontFamily: "Barlow, sans-serif",
@@ -1743,20 +1761,67 @@ function WorkCtaAct() {
                   transition: "background 0.25s ease, border-color 0.25s ease",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.background =
-                    "oklch(0.65 0.201 36.9)";
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                    "oklch(0.65 0.201 36.9)";
+                  e.currentTarget.style.background = "oklch(0.65 0.201 36.9)";
+                  e.currentTarget.style.borderColor = "oklch(0.65 0.201 36.9)";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.background =
-                    "oklch(0.12 0.006 60)";
-                  (e.currentTarget as HTMLAnchorElement).style.borderColor =
-                    "oklch(0.12 0.006 60)";
+                  e.currentTarget.style.background = "oklch(0.12 0.006 60)";
+                  e.currentTarget.style.borderColor = "oklch(0.12 0.006 60)";
                 }}
               >
                 Start a conversation
               </a>
+
+              <div
+                className="flex flex-wrap items-center justify-center gap-3"
+                style={{
+                  fontFamily: "Barlow, sans-serif",
+                  fontWeight: 300,
+                  fontSize: "0.72rem",
+                  letterSpacing: "0.08em",
+                  color: "oklch(0.42 0.006 62)",
+                }}
+              >
+                <span>Prefer browser email?</span>
+
+                <a
+                  href={gmailCompose}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: "oklch(0.57 0.135 38)",
+                    textDecoration: "none",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.14em",
+                    fontSize: "0.68rem",
+                  }}
+                >
+                  Open in Gmail
+                </a>
+
+                <span style={{ color: "oklch(0.65 0.006 65)" }}>·</span>
+
+                <button
+                  type="button"
+                  onClick={handleCopyEmail}
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    padding: 0,
+                    cursor: "pointer",
+                    color: copied
+                      ? "oklch(0.57 0.135 38)"
+                      : "oklch(0.57 0.135 38)",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.14em",
+                    fontSize: "0.68rem",
+                    fontFamily: "Barlow, sans-serif",
+                    fontWeight: 300,
+                  }}
+                >
+                  {copied ? "Email copied" : "Copy email"}
+                </button>
+              </div>
             </div>
           </div>
         </div>
