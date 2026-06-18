@@ -845,6 +845,211 @@ function DualitySection() {
   );
 }
 
+
+function ResearchRealisationSection() {
+  const { ref, visible } = useReveal(0.12);
+
+  const credentials = [
+    {
+      image: "/assets/credentials/studio34-dsir-rnd.webp",
+      alt: "Studio34 DSIR recognised R&D facility emblem",
+      label: "DSIR Recognised R&D Facility",
+      meta: "Department of Scientific & Industrial Research, Govt. of India",
+      copy: "A recognised industrial design R&D environment where ideas move beyond styling into development, validation and physical realisation.",
+    },
+    {
+      image: "/assets/credentials/studio34-iso27001.webp",
+      alt: "Studio34 ISO 27001 certified emblem",
+      label: "ISO/IEC 27001 Certified",
+      meta: "Information Security Management System",
+      copy: "Structured information security practices for confidential design, engineering and development programmes.",
+    },
+  ];
+
+  return (
+    <section
+      id="research-realisation"
+      data-ocid="ideology.research-realisation.section"
+      className="relative"
+      style={{ scrollMarginTop: "80px", background: "oklch(0.97 0.006 80)" }}
+    >
+      <div
+        className="absolute top-0 left-0 right-0"
+        style={{
+          height: "1px",
+          background:
+            "linear-gradient(to right, transparent, oklch(0.65 0.201 36.9 / 0.18), transparent)",
+        }}
+      />
+
+      <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-24 py-24 md:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] gap-12 lg:gap-16 items-center">
+          <div>
+            <SectionHeader
+              eyebrow="अनुसंधान — Capability"
+              title="Research & Realisation"
+            />
+
+            <p
+              style={{
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 300,
+                fontSize: "clamp(1.25rem, 2.4vw, 1.8rem)",
+                lineHeight: 1.35,
+                color: "oklch(0.12 0.006 60)",
+                marginBottom: "1.2rem",
+                maxWidth: "36rem",
+              }}
+            >
+              Design is only valuable when it can be developed, protected and
+              realised.
+            </p>
+
+            <p
+              style={{
+                fontFamily: "Barlow, sans-serif",
+                fontWeight: 300,
+                fontSize: "clamp(0.86rem, 1.3vw, 0.96rem)",
+                lineHeight: 1.9,
+                color: "oklch(0.38 0.006 62)",
+                maxWidth: "38rem",
+                margin: 0,
+              }}
+            >
+              Studio34 operates at the intersection of automotive design,
+              industrial research, secure development workflows and physical
+              prototyping. The studio is structured to move ideas from first
+              intent to build-ready outcomes.
+            </p>
+          </div>
+
+          <div
+            ref={ref}
+            className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6"
+            style={{
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(24px)",
+              transition: "opacity 0.72s ease, transform 0.72s ease",
+            }}
+          >
+            {credentials.map((credential, index) => (
+              <div
+                key={credential.label}
+                data-ocid={`ideology.credential.${index + 1}`}
+                style={{
+                  position: "relative",
+                  overflow: "hidden",
+                  minHeight: "420px",
+                  border: "1px solid oklch(0.12 0.006 60 / 0.08)",
+                  background:
+                    "linear-gradient(180deg, oklch(0.985 0.004 82) 0%, oklch(0.965 0.006 80) 100%)",
+                  padding: "clamp(1.4rem, 2.6vw, 2rem)",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  gap: "1.5rem",
+                }}
+              >
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background:
+                      index === 0
+                        ? "radial-gradient(circle at 50% 28%, oklch(0.65 0.201 36.9 / 0.08), transparent 46%)"
+                        : "radial-gradient(circle at 50% 28%, oklch(0.12 0.006 60 / 0.045), transparent 46%)",
+                    pointerEvents: "none",
+                  }}
+                />
+
+                <div
+                  style={{
+                    position: "relative",
+                    zIndex: 1,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    minHeight: "210px",
+                  }}
+                >
+                  <img
+                    src={credential.image}
+                    alt={credential.alt}
+                    loading="lazy"
+                    decoding="async"
+                    style={{
+                      width: "min(220px, 64vw)",
+                      height: "auto",
+                      display: "block",
+                      filter:
+                        "drop-shadow(0 18px 32px oklch(0.12 0.006 60 / 0.08))",
+                    }}
+                  />
+                </div>
+
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <div
+                    style={{
+                      height: "1px",
+                      width: "100%",
+                      background:
+                        "linear-gradient(to right, transparent, oklch(0.12 0.006 60 / 0.12), transparent)",
+                      marginBottom: "1.35rem",
+                    }}
+                  />
+
+                  <p
+                    style={{
+                      fontFamily: "Barlow, sans-serif",
+                      fontWeight: 300,
+                      letterSpacing: "0.18em",
+                      fontSize: "0.72rem",
+                      textTransform: "uppercase",
+                      color: "oklch(0.65 0.201 36.9)",
+                      marginBottom: "0.55rem",
+                    }}
+                  >
+                    {credential.label}
+                  </p>
+
+                  <p
+                    style={{
+                      fontFamily: "Barlow, sans-serif",
+                      fontWeight: 300,
+                      letterSpacing: "0.08em",
+                      fontSize: "0.68rem",
+                      textTransform: "uppercase",
+                      color: "oklch(0.52 0.008 65)",
+                      lineHeight: 1.65,
+                      marginBottom: "0.95rem",
+                    }}
+                  >
+                    {credential.meta}
+                  </p>
+
+                  <p
+                    style={{
+                      fontFamily: "Barlow, sans-serif",
+                      fontWeight: 300,
+                      fontSize: "0.86rem",
+                      lineHeight: 1.85,
+                      color: "oklch(0.38 0.006 62)",
+                      margin: 0,
+                    }}
+                  >
+                    {credential.copy}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const PROCESS_STEPS = [
   {
     number: "01",
@@ -1408,6 +1613,16 @@ function TurinClosingSection() {
 }
 
 export default function IdeologyPage() {
+   useEffect(() => {
+    document.title = "Ideology | Studio34 Design Philosophy";
+
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute(
+        "content",
+        "The design ideology behind Studio34, shaped by automotive design discipline, Indian context, precision craft, proportion, surface, motion and meaning."
+      );
+  }, []);
   return (
     <main>
       <HeroSection />
@@ -1428,6 +1643,7 @@ export default function IdeologyPage() {
       >
         {[
           { id: "meaning-34", label: "Identity" },
+          { id: "research-realisation", label: "R&D" },
           { id: "process", label: "Process" },
         ].map((item) => (
           <a
@@ -1478,8 +1694,10 @@ export default function IdeologyPage() {
       <Meaning34Section />
       <IndiaLensSection />
       <DualitySection />
+      <ResearchRealisationSection />
       <ProcessSection />
       <TurinClosingSection />
     </main>
   );
 }
+
