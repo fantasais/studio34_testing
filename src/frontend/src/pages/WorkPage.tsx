@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 // ─── Shared media helper ─────────────────────────────────────────────
 
@@ -14,7 +14,7 @@ function MediaFill({
   alt: string;
   placeholderLabel: string;
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   zoomed?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
@@ -60,8 +60,10 @@ function MediaFill({
       onError={() => setFailed(true)}
       style={{
         ...style,
-        transform: zoomed ? "scale(1.05)" : "scale(1)",
-        transition: "transform 0.6s ease",
+        transform: zoomed ? "scale(1.05)" : style.transform ?? "scale(1)",
+        transition:
+          style.transition ??
+          "transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)",
       }}
     />
   );
@@ -86,8 +88,7 @@ const SERVICE_DETAILS = [
   {
     title: "Sculpting",
     hindi: "संरचना",
-    image:
-      "/assets/services/Work_Sculpting.webp",
+    image: "/assets/services/Work_Sculpting.webp",
     overview:
       "Digital and physical surface development that refines proportion, continuity and manufacturable form with precision.",
     pillars: [
@@ -113,8 +114,7 @@ const SERVICE_DETAILS = [
   {
     title: "CMF",
     hindi: "रूप-रंग-बनावट",
-    image:
-      "/assets/services/Work_CMF.webp",
+    image: "/assets/services/Work_CMF.webp",
     overview:
       "Colour, material and finish strategies shaped for brand expression, tactile quality and manufacturing intent.",
     pillars: [
@@ -142,6 +142,7 @@ function ServiceRow({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -151,6 +152,7 @@ function ServiceRow({
       },
       { threshold: 0.12 },
     );
+
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
@@ -178,7 +180,6 @@ function ServiceRow({
           imageLeft ? "lg:flex-row" : "lg:flex-row-reverse"
         } gap-0 items-stretch md:min-h-[380px]`}
       >
-        {/* Image frame — 58% */}
         <div
           className="w-full lg:w-[58%] flex-none relative overflow-hidden"
           style={{ aspectRatio: "16/9", minHeight: "260px" }}
@@ -192,6 +193,7 @@ function ServiceRow({
             className="absolute inset-0 w-full h-full object-cover"
             zoomed={hovered}
           />
+
           <div
             className="absolute bottom-0 left-0 right-0"
             style={{
@@ -201,10 +203,8 @@ function ServiceRow({
               pointerEvents: "none",
             }}
           />
-          {/* Service number stamp */}
         </div>
 
-        {/* Text block — 42% */}
         <div
           className={`w-full lg:w-[42%] flex-none flex flex-col justify-center${
             textRight ? " lg:items-end" : ""
@@ -217,7 +217,6 @@ function ServiceRow({
             background: "oklch(0.97 0.006 80)",
           }}
         >
-          {/* Title row */}
           <div className="flex flex-col gap-2 mb-8">
             <h3
               className={textRight ? "lg:[text-align:right]" : ""}
@@ -233,6 +232,7 @@ function ServiceRow({
             >
               {service.title}
             </h3>
+
             <span
               className={textRight ? "lg:[text-align:right] lg:block" : ""}
               style={{
@@ -244,6 +244,7 @@ function ServiceRow({
             >
               {service.hindi}
             </span>
+
             <div
               className={textRight ? "lg:ml-auto" : ""}
               style={{
@@ -255,7 +256,6 @@ function ServiceRow({
             />
           </div>
 
-          {/* Overview */}
           <p
             className={textRight ? "lg:ml-auto lg:[text-align:right]" : ""}
             style={{
@@ -271,11 +271,10 @@ function ServiceRow({
             {service.overview}
           </p>
 
-          {/* Pillars */}
           <div
-          className={`flex flex-col gap-0 ${
-          textRight ? "lg:self-end" : "lg:self-start"
-          }`}
+            className={`flex flex-col gap-0 ${
+              textRight ? "lg:self-end" : "lg:self-start"
+            }`}
           >
             {service.pillars.map((pillar, i) => (
               <div
@@ -299,6 +298,7 @@ function ServiceRow({
                     flexShrink: 0,
                   }}
                 />
+
                 <span
                   style={{
                     fontFamily: "Barlow, sans-serif",
@@ -345,6 +345,7 @@ function ServicesAct() {
         >
           सेवाएँ — Services In Depth
         </p>
+
         <h2
           style={{
             fontFamily: "Barlow, sans-serif",
@@ -358,6 +359,7 @@ function ServicesAct() {
         >
           SERVICES
         </h2>
+
         <div
           style={{
             marginTop: "1.25rem",
@@ -392,6 +394,7 @@ function VisualDivider() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -401,85 +404,89 @@ function VisualDivider() {
       },
       { threshold: 0.2 },
     );
+
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
 
-return (
- <section
-  id="work-divider"
-  style={{
-    scrollMarginTop: "80px",
-    paddingTop: "clamp(2rem, 4vw, 4rem)",
-    paddingBottom: "clamp(1.5rem, 3vw, 3rem)",
-    background: "oklch(0.97 0.006 80)",
-  }}
->
-    <div
-      className="mx-auto"
+  return (
+    <section
+      id="work-divider"
       style={{
-        width: "min(1320px, calc(100% - 3rem))",
-        height: "1px",
-        marginBottom: "clamp(1.25rem, 2vw, 2rem)",
-        background:
-          "linear-gradient(to right, transparent, oklch(0.65 0.201 36.9 / 0.32), transparent)",
+        scrollMarginTop: "80px",
+        paddingTop: "clamp(2rem, 4vw, 4rem)",
+        paddingBottom: "clamp(1.5rem, 3vw, 3rem)",
+        background: "oklch(0.97 0.006 80)",
       }}
-    />
-
-    <div
-      ref={ref}
-      className="relative w-full overflow-hidden"
-      style={{ height: "clamp(260px, 45vh, 520px)" }}
     >
-      <MediaFill
-        src="/assets/pagedividers/wip.webp"
-        alt="Studio work"
-        placeholderLabel="Studio process image"
-        className="absolute inset-0 w-full h-full object-cover"
+      <div
+        className="mx-auto"
         style={{
-          transform: visible ? "scale(1)" : "scale(1.06)",
-          transition: "transform 1.2s ease-out",
-          objectPosition: "center 20%",
+          width: "min(1320px, calc(100% - 3rem))",
+          height: "1px",
+          marginBottom: "clamp(1.25rem, 2vw, 2rem)",
+          background:
+            "linear-gradient(to right, transparent, oklch(0.65 0.201 36.9 / 0.32), transparent)",
         }}
       />
+
       <div
-        className="absolute inset-0"
-        style={{ background: "oklch(0.08 0.006 60 / 0.25)" }}
-      />
-      <div
-        className="absolute inset-0 flex flex-col items-center justify-end pb-8 md:pb-12 gap-4"
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(16px)",
-          transition:
-            "opacity 0.9s ease-out 0.3s, transform 0.9s ease-out 0.3s",
-        }}
+        ref={ref}
+        className="relative w-full overflow-hidden"
+        style={{ height: "clamp(260px, 45vh, 520px)" }}
       >
-        <h2
+        <MediaFill
+          src="/assets/pagedividers/wip.webp"
+          alt="Studio work"
+          placeholderLabel="Studio process image"
+          className="absolute inset-0 w-full h-full object-cover"
           style={{
-            fontFamily: "Barlow, sans-serif",
-            fontWeight: 100,
-            fontSize: "clamp(0.96rem, 3vw, 2.4rem)",
-            letterSpacing: "0.35em",
-            textTransform: "uppercase",
-            color: "oklch(0.95 0.006 78)",
-            lineHeight: 1,
-            textAlign: "center",
-          }}
-        >
-          Intent into reality
-        </h2>
-        <div
-          style={{
-            height: "1px",
-            width: "clamp(60px, 12vw, 120px)",
-            background: "oklch(0.72 0.13 76 / 0.5)",
+            transform: visible ? "scale(1)" : "scale(1.06)",
+            transition: "transform 1.2s ease-out",
+            objectPosition: "center 20%",
           }}
         />
+
+        <div
+          className="absolute inset-0"
+          style={{ background: "oklch(0.08 0.006 60 / 0.25)" }}
+        />
+
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-end pb-8 md:pb-12 gap-4"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(16px)",
+            transition:
+              "opacity 0.9s ease-out 0.3s, transform 0.9s ease-out 0.3s",
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: "Barlow, sans-serif",
+              fontWeight: 100,
+              fontSize: "clamp(0.96rem, 3vw, 2.4rem)",
+              letterSpacing: "0.35em",
+              textTransform: "uppercase",
+              color: "oklch(0.95 0.006 78)",
+              lineHeight: 1,
+              textAlign: "center",
+            }}
+          >
+            Intent into reality
+          </h2>
+
+          <div
+            style={{
+              height: "1px",
+              width: "clamp(60px, 12vw, 120px)",
+              background: "oklch(0.72 0.13 76 / 0.5)",
+            }}
+          />
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 }
 
 // ─── Act 2: Portfolio ────────────────────────────────────────────
@@ -493,10 +500,9 @@ const PORTFOLIO_ITEMS = [
     image: "/assets/project1/8.webp",
     isPlaceholder: false,
     categoryTag: "Automotive",
-    intro:
-      "An upmarket EV Lawn Mower for the European and American markets",
+    intro: "An upmarket EV Lawn Mower for the European and American markets",
     gallery: [
-  "/assets/project1/1.webp",
+      "/assets/project1/1.webp",
       "/assets/project1/2.webp",
       "/assets/project1/3.webp",
       "/assets/project1/4.webp",
@@ -506,7 +512,7 @@ const PORTFOLIO_ITEMS = [
       "/assets/project1/8.webp",
       "/assets/project1/9.webp",
       "/assets/project1/10.webp",
-],
+    ],
   },
   {
     id: 2,
@@ -519,7 +525,7 @@ const PORTFOLIO_ITEMS = [
     intro:
       "A ground-up micro mobility EV concept for Indian Metros presented at Auto Expo 2023",
     gallery: [
-     "/assets/project2/1.webp",
+      "/assets/project2/1.webp",
       "/assets/project2/2.webp",
       "/assets/project2/3.webp",
       "/assets/project2/4.webp",
@@ -559,24 +565,23 @@ const PORTFOLIO_ITEMS = [
     label: "POC Launch Vehicles",
     category: "Multi Utility Electric Vehicle",
     role: "Design + Development + CMF",
-    image:
-      "/assets/project4/1.webp",
+    image: "/assets/project4/1.webp",
     isPlaceholder: false,
     categoryTag: "Automotive",
     intro:
       "Full exterior form development and CMF direction for a next-generation agricultural tractor platform.",
     gallery: [
-  "/assets/project4/2.webp",
+      "/assets/project4/2.webp",
       "/assets/project4/3.webp",
       "/assets/project4/4.webp",
       "/assets/project4/5.webp",
- "/assets/project4/6.webp",
+      "/assets/project4/6.webp",
       "/assets/project4/7.webp",
       "/assets/project4/8.webp",
       "/assets/project4/9.webp",
       "/assets/project4/10.webp",
       "/assets/project4/11.webp",
-],
+    ],
   },
   {
     id: 5,
@@ -589,7 +594,7 @@ const PORTFOLIO_ITEMS = [
     intro:
       "Form development and CMF strategy for a refined leisure vehicle designed for resort and hospitality environments.",
     gallery: [
-  "/assets/project5/1.webp",
+      "/assets/project5/1.webp",
       "/assets/project5/2.webp",
       "/assets/project5/3.webp",
       "/assets/project5/4.webp",
@@ -599,7 +604,7 @@ const PORTFOLIO_ITEMS = [
       "/assets/project5/9.webp",
       "/assets/project5/10.webp",
       "/assets/project5/11.webp",
-     ],
+    ],
   },
   {
     id: 6,
@@ -609,10 +614,9 @@ const PORTFOLIO_ITEMS = [
     image: "/assets/project6/7.webp",
     isPlaceholder: false,
     categoryTag: "Product",
-    intro:
-      "Designing a daily use product for the Indian Kitchen",
+    intro: "Designing a daily use product for the Indian Kitchen",
     gallery: [
-  "/assets/project6/1.webp",
+      "/assets/project6/1.webp",
       "/assets/project6/2.webp",
       "/assets/project6/3.webp",
       "/assets/project6/4.webp",
@@ -622,21 +626,20 @@ const PORTFOLIO_ITEMS = [
       "/assets/project6/8.webp",
       "/assets/project6/9.webp",
       "/assets/project6/10.webp",
-     ], 
+    ],
   },
   {
     id: 7,
-  label: "Concept T1",
+    label: "Concept T1",
     category: "Futuristic Tractor Concept",
     role: "Concept + Design + Visualization",
     image: "/assets/project7/7.webp",
     isPlaceholder: false,
     categoryTag: "Automotive",
-    intro:
-      "A strong and masculine take on a conceptual and futuristic tractor",
+    intro: "A strong and masculine take on a conceptual and futuristic tractor",
     gallery: [
-  "/assets/project7/1.webp",
-  "/assets/project7/2.webp",
+      "/assets/project7/1.webp",
+      "/assets/project7/2.webp",
       "/assets/project7/3.webp",
       "/assets/project7/4.webp",
       "/assets/project7/5.webp",
@@ -673,10 +676,9 @@ function ProjectLightbox({
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Animate in
     const t = setTimeout(() => setVisible(true), 10);
-    // Lock body scroll
     document.body.style.overflow = "hidden";
+
     return () => {
       clearTimeout(t);
       document.body.style.overflow = "";
@@ -689,6 +691,7 @@ function ProjectLightbox({
       if (e.key === "ArrowLeft") onGalleryPrev();
       if (e.key === "ArrowRight") onGalleryNext();
     }
+
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [onClose, onGalleryPrev, onGalleryNext]);
@@ -726,7 +729,6 @@ function ProjectLightbox({
         if (e.key === "Enter" || e.key === " ") onClose();
       }}
     >
-      {/* Top bar */}
       <div
         className="flex items-center justify-between px-6 md:px-12"
         style={{ paddingTop: "1.5rem", paddingBottom: "1rem", flexShrink: 0 }}
@@ -743,6 +745,7 @@ function ProjectLightbox({
         >
           {projectNumStr} / {totalStr}
         </span>
+
         <button
           data-ocid="work.project.close_button"
           type="button"
@@ -761,28 +764,23 @@ function ProjectLightbox({
             transition: "border-color 0.2s, color 0.2s",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.borderColor =
-              "oklch(0.65 0.201 36.9)";
-            (e.currentTarget as HTMLButtonElement).style.color =
-              "oklch(0.93 0.006 70)";
+            e.currentTarget.style.borderColor = "oklch(0.65 0.201 36.9)";
+            e.currentTarget.style.color = "oklch(0.93 0.006 70)";
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.borderColor =
+            e.currentTarget.style.borderColor =
               "oklch(0.65 0.201 36.9 / 0.45)";
-            (e.currentTarget as HTMLButtonElement).style.color =
-              "oklch(0.65 0.201 36.9)";
+            e.currentTarget.style.color = "oklch(0.65 0.201 36.9)";
           }}
         >
           Close ×
         </button>
       </div>
 
-      {/* Project info block */}
       <div
         className="px-6 md:px-12"
         style={{ paddingBottom: "1.25rem", flexShrink: 0 }}
       >
-        {/* Category tag */}
         <span
           style={{
             display: "inline-block",
@@ -799,7 +797,7 @@ function ProjectLightbox({
         >
           {project.categoryTag}
         </span>
-        {/* Project title */}
+
         <h2
           style={{
             fontFamily: "Barlow, sans-serif",
@@ -814,7 +812,7 @@ function ProjectLightbox({
         >
           {project.label}
         </h2>
-        {/* Intro line */}
+
         <p
           style={{
             fontFamily: "Barlow, sans-serif",
@@ -830,7 +828,6 @@ function ProjectLightbox({
         </p>
       </div>
 
-      {/* Gallery area */}
       <div
         className="flex-1 relative px-6 md:px-12 flex items-center justify-center"
         style={{ minHeight: 0, paddingBottom: "0.5rem" }}
@@ -851,6 +848,7 @@ function ProjectLightbox({
                 background: "oklch(0.65 0.201 36.9 / 0.35)",
               }}
             />
+
             <span
               style={{
                 fontFamily: "Barlow, sans-serif",
@@ -869,7 +867,6 @@ function ProjectLightbox({
             className="relative w-full h-full flex items-center justify-center"
             style={{ maxHeight: "100%" }}
           >
-            {/* Prev arrow */}
             {galleryTotal > 1 && (
               <button
                 data-ocid="work.project.pagination_prev"
@@ -895,11 +892,11 @@ function ProjectLightbox({
                   transition: "background 0.2s",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background =
+                  e.currentTarget.style.background =
                     "oklch(0.18 0.006 60 / 0.9)";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background =
+                  e.currentTarget.style.background =
                     "oklch(0.12 0.006 60 / 0.7)";
                 }}
               >
@@ -918,7 +915,6 @@ function ProjectLightbox({
               }}
             />
 
-            {/* Next arrow */}
             {galleryTotal > 1 && (
               <button
                 data-ocid="work.project.pagination_next"
@@ -944,11 +940,11 @@ function ProjectLightbox({
                   transition: "background 0.2s",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background =
+                  e.currentTarget.style.background =
                     "oklch(0.18 0.006 60 / 0.9)";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.background =
+                  e.currentTarget.style.background =
                     "oklch(0.12 0.006 60 / 0.7)";
                 }}
               >
@@ -956,7 +952,6 @@ function ProjectLightbox({
               </button>
             )}
 
-            {/* Image counter */}
             <div
               style={{
                 position: "absolute",
@@ -977,7 +972,6 @@ function ProjectLightbox({
         )}
       </div>
 
-      {/* Bottom project navigation */}
       <div
         className="flex items-center justify-between px-6 md:px-12"
         style={{
@@ -1005,16 +999,15 @@ function ProjectLightbox({
             transition: "color 0.2s",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.color =
-              "oklch(0.65 0.201 36.9)";
+            e.currentTarget.style.color = "oklch(0.65 0.201 36.9)";
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.color =
-              "oklch(0.45 0.006 65)";
+            e.currentTarget.style.color = "oklch(0.45 0.006 65)";
           }}
         >
           ← Previous
         </button>
+
         <span
           style={{
             fontFamily: "Barlow, sans-serif",
@@ -1027,6 +1020,7 @@ function ProjectLightbox({
         >
           {project.category}
         </span>
+
         <button
           data-ocid="work.project.primary_button"
           type="button"
@@ -1045,12 +1039,10 @@ function ProjectLightbox({
             transition: "color 0.2s",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.color =
-              "oklch(0.65 0.201 36.9)";
+            e.currentTarget.style.color = "oklch(0.65 0.201 36.9)";
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.color =
-              "oklch(0.45 0.006 65)";
+            e.currentTarget.style.color = "oklch(0.45 0.006 65)";
           }}
         >
           Next →
@@ -1082,41 +1074,51 @@ function PortfolioCard({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setVisible(true), animationDelay);
+          window.setTimeout(() => setVisible(true), animationDelay);
           observer.disconnect();
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.14, rootMargin: "0px 0px -8% 0px" },
     );
+
     observer.observe(el);
     return () => observer.disconnect();
   }, [animationDelay]);
+
+  const sharedCardStyle: CSSProperties = {
+    ...(fullHeight ? {} : { aspectRatio }),
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translateY(0)" : "translateY(30px)",
+    transition:
+      "opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1), transform 0.72s cubic-bezier(0.22, 1, 0.36, 1)",
+    transitionDelay: visible ? "0ms" : `${animationDelay}ms`,
+    cursor: onClick ? "pointer" : "default",
+  };
 
   if (item.isPlaceholder) {
     return (
       <div
         ref={ref}
         data-ocid={`work.item.${item.id}`}
+        role={onClick ? "button" : undefined}
+        tabIndex={onClick ? 0 : undefined}
         className={`relative overflow-hidden w-full ${
           fullHeight ? "aspect-[4/3] sm:aspect-auto sm:h-full" : ""
         }`}
         style={{
-          ...(fullHeight ? {} : { aspectRatio }),
+          ...sharedCardStyle,
           background:
             "linear-gradient(180deg, oklch(0.93 0.004 78) 0%, oklch(0.88 0.004 74) 100%)",
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(24px)",
-          transition: "opacity 0.65s ease-out, transform 0.65s ease-out",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
           gap: "0.5rem",
           border: "1px solid oklch(0.12 0.006 60 / 0.07)",
-          cursor: onClick ? "pointer" : "default",
         }}
         onClick={onClick}
         onKeyDown={(e) => {
@@ -1130,6 +1132,7 @@ function PortfolioCard({
             background: "oklch(0.65 0.201 36.9 / 0.4)",
           }}
         />
+
         <span
           style={{
             fontFamily: "Barlow, sans-serif",
@@ -1150,16 +1153,12 @@ function PortfolioCard({
     <div
       ref={ref}
       data-ocid={`work.item.${item.id}`}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
       className={`relative overflow-hidden w-full ${
         fullHeight ? "aspect-[4/3] sm:aspect-auto sm:h-full" : ""
       }`}
-      style={{
-        ...(fullHeight ? {} : { aspectRatio }),
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(24px)",
-        transition: "opacity 0.65s ease-out, transform 0.65s ease-out",
-        cursor: onClick ? "pointer" : "default",
-      }}
+      style={sharedCardStyle}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={onClick}
@@ -1173,9 +1172,23 @@ function PortfolioCard({
         placeholderLabel={item.label}
         className="absolute inset-0 w-full h-full object-cover"
         zoomed={hovered}
+        style={{
+          transform: visible ? "scale(1)" : "scale(1.035)",
+          transition: "transform 1.15s cubic-bezier(0.22, 1, 0.36, 1)",
+        }}
       />
 
-      {/* Hover reveal */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to top, oklch(0.08 0.006 60 / 0.72) 0%, oklch(0.08 0.006 60 / 0.36) 44%, oklch(0.08 0.006 60 / 0.10) 100%)",
+          opacity: visible ? 1 : 0,
+          transition: "opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1)",
+          pointerEvents: "none",
+        }}
+      />
+
       <div
         className="absolute inset-0"
         style={{
@@ -1197,10 +1210,14 @@ function PortfolioCard({
             textTransform: "uppercase",
             color: "oklch(0.72 0.13 76)",
             marginBottom: "0.35rem",
+            opacity: hovered ? 1 : 0,
+            transform: hovered ? "translateY(0)" : "translateY(8px)",
+            transition: "opacity 0.32s ease 60ms, transform 0.32s ease 60ms",
           }}
         >
           {item.category}
         </span>
+
         <span
           style={{
             fontFamily: "Barlow, sans-serif",
@@ -1210,10 +1227,14 @@ function PortfolioCard({
             textTransform: "uppercase",
             color: "oklch(0.76 0.008 72)",
             marginBottom: "0.7rem",
+            opacity: hovered ? 1 : 0,
+            transform: hovered ? "translateY(0)" : "translateY(8px)",
+            transition: "opacity 0.32s ease 100ms, transform 0.32s ease 100ms",
           }}
         >
           {item.role}
         </span>
+
         <span
           style={{
             fontFamily: "Barlow, sans-serif",
@@ -1222,20 +1243,24 @@ function PortfolioCard({
             fontSize: "clamp(0.85rem, 1.8vw, 1.1rem)",
             textTransform: "uppercase",
             color: "oklch(0.93 0.006 70)",
+            opacity: hovered ? 1 : 0,
+            transform: hovered ? "translateY(0)" : "translateY(8px)",
+            transition: "opacity 0.32s ease 140ms, transform 0.32s ease 140ms",
           }}
         >
           {item.label}
         </span>
       </div>
 
-      {/* Always-visible label gradient */}
       <div
         className="absolute bottom-0 left-0 right-0 px-5 py-4"
         style={{
           background:
             "linear-gradient(to top, oklch(0.08 0.006 60 / 0.8) 0%, transparent 100%)",
-          opacity: hovered ? 0 : 1,
-          transition: "opacity 0.3s ease",
+          opacity: hovered ? 0 : visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(12px)",
+          transition:
+            "opacity 0.45s ease 120ms, transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) 120ms",
           pointerEvents: "none",
         }}
       >
@@ -1252,6 +1277,7 @@ function PortfolioCard({
           >
             {item.category}
           </span>
+
           <span
             style={{
               fontFamily: "Barlow, sans-serif",
@@ -1286,24 +1312,30 @@ function PortfolioAct() {
 
   const prevProject = () => {
     if (openProjectId === null) return;
+
     const idx = PORTFOLIO_ITEMS.findIndex((p) => p.id === openProjectId);
     const prevIdx = (idx - 1 + PORTFOLIO_ITEMS.length) % PORTFOLIO_ITEMS.length;
+
     setOpenProjectId(PORTFOLIO_ITEMS[prevIdx].id);
     setGalleryIndex(0);
   };
 
   const nextProject = () => {
     if (openProjectId === null) return;
+
     const idx = PORTFOLIO_ITEMS.findIndex((p) => p.id === openProjectId);
     const nextIdx = (idx + 1) % PORTFOLIO_ITEMS.length;
+
     setOpenProjectId(PORTFOLIO_ITEMS[nextIdx].id);
     setGalleryIndex(0);
   };
 
   const galleryPrev = () => {
     if (openProjectId === null) return;
+
     const project = PORTFOLIO_ITEMS.find((p) => p.id === openProjectId);
     if (!project || project.gallery.length === 0) return;
+
     setGalleryIndex(
       (i) => (i - 1 + project.gallery.length) % project.gallery.length,
     );
@@ -1311,8 +1343,10 @@ function PortfolioAct() {
 
   const galleryNext = () => {
     if (openProjectId === null) return;
+
     const project = PORTFOLIO_ITEMS.find((p) => p.id === openProjectId);
     if (!project || project.gallery.length === 0) return;
+
     setGalleryIndex((i) => (i + 1) % project.gallery.length);
   };
 
@@ -1329,6 +1363,7 @@ function PortfolioAct() {
           onGalleryNext={galleryNext}
         />
       )}
+
       <section
         id="work-projects"
         data-ocid="work.portfolio.section"
@@ -1343,8 +1378,8 @@ function PortfolioAct() {
               "linear-gradient(to right, transparent, oklch(0.65 0.201 36.9 / 0.25), transparent)",
           }}
         />
+
         <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-24 py-24 md:py-32">
-          {/* Header */}
           <div className="mb-16 md:mb-20">
             <p
               style={{
@@ -1359,6 +1394,7 @@ function PortfolioAct() {
             >
               काम — Selected Work
             </p>
+
             <h2
               style={{
                 fontFamily: "Barlow, sans-serif",
@@ -1372,6 +1408,7 @@ function PortfolioAct() {
             >
               PROJECTS
             </h2>
+
             <div
               style={{
                 marginTop: "1rem",
@@ -1383,9 +1420,7 @@ function PortfolioAct() {
             />
           </div>
 
-          {/* 3-tier grid */}
           <div className="flex flex-col gap-4">
-            {/* Tier 1: large left (col-span-2) + small right (col-span-1) */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-stretch">
               <div className="col-span-1 sm:col-span-2">
                 <PortfolioCard
@@ -1395,6 +1430,7 @@ function PortfolioAct() {
                   onClick={() => openProject(PORTFOLIO_ITEMS[0].id)}
                 />
               </div>
+
               <div
                 className="col-span-1"
                 style={{ display: "flex", flexDirection: "column" }}
@@ -1410,7 +1446,6 @@ function PortfolioAct() {
               </div>
             </div>
 
-            {/* Tier 2: 3 equal columns */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <PortfolioCard
                 item={PORTFOLIO_ITEMS[2]}
@@ -1418,12 +1453,14 @@ function PortfolioAct() {
                 animationDelay={0}
                 onClick={() => openProject(PORTFOLIO_ITEMS[2].id)}
               />
+
               <PortfolioCard
                 item={PORTFOLIO_ITEMS[3]}
                 aspectRatio="4/3"
                 animationDelay={80}
                 onClick={() => openProject(PORTFOLIO_ITEMS[3].id)}
               />
+
               <PortfolioCard
                 item={PORTFOLIO_ITEMS[4]}
                 aspectRatio="4/3"
@@ -1432,7 +1469,6 @@ function PortfolioAct() {
               />
             </div>
 
-            {/* Tier 3: small left (col-span-1) + large right (col-span-2) — mirror of Tier 1 */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-stretch">
               <div
                 className="col-span-1"
@@ -1447,6 +1483,7 @@ function PortfolioAct() {
                   />
                 </div>
               </div>
+
               <div className="col-span-1 sm:col-span-2">
                 <PortfolioCard
                   item={PORTFOLIO_ITEMS[6]}
@@ -1496,6 +1533,7 @@ function ClientLogoCell({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -1505,6 +1543,7 @@ function ClientLogoCell({
       },
       { threshold: 0.1 },
     );
+
     observer.observe(el);
     return () => observer.disconnect();
   }, [delay]);
@@ -1587,8 +1626,8 @@ function ClientsAct() {
             "linear-gradient(to right, transparent, oklch(0.12 0.006 60 / 0.12), transparent)",
         }}
       />
+
       <div className="mx-auto max-w-7xl px-6 md:px-16 lg:px-24 py-24 md:py-32">
-        {/* Header */}
         <div className="mb-16 md:mb-20">
           <p
             style={{
@@ -1603,6 +1642,7 @@ function ClientsAct() {
           >
             ग्राहक — Selected Collaborations
           </p>
+
           <h2
             style={{
               fontFamily: "Barlow, sans-serif",
@@ -1616,6 +1656,7 @@ function ClientsAct() {
           >
             CLIENTS
           </h2>
+
           <div
             style={{
               marginTop: "1.25rem",
@@ -1627,25 +1668,23 @@ function ClientsAct() {
           />
         </div>
 
-        {/* Logo grid */}
         <div
-  className="grid grid-cols-2 xl:grid-cols-7"
-  style={{
-    borderLeft: "1px solid oklch(0.12 0.006 60 / 0.07)",
-    borderTop: "1px solid oklch(0.12 0.006 60 / 0.07)",
-    background: "oklch(0.985 0.004 82)",
-  }}
->
-  {CLIENT_LOGOS.map((client, idx) => (
-    <ClientLogoCell
-      key={client.name}
-      client={client}
-      delay={idx * 40}
-    />
-  ))}
-</div>
-        
-        {/* NDA note */}
+          className="grid grid-cols-2 xl:grid-cols-7"
+          style={{
+            borderLeft: "1px solid oklch(0.12 0.006 60 / 0.07)",
+            borderTop: "1px solid oklch(0.12 0.006 60 / 0.07)",
+            background: "oklch(0.985 0.004 82)",
+          }}
+        >
+          {CLIENT_LOGOS.map((client, idx) => (
+            <ClientLogoCell
+              key={client.name}
+              client={client}
+              delay={idx * 40}
+            />
+          ))}
+        </div>
+
         <p
           style={{
             marginTop: "2.5rem",
@@ -1809,9 +1848,7 @@ function WorkCtaAct() {
                     border: "none",
                     padding: 0,
                     cursor: "pointer",
-                    color: copied
-                      ? "oklch(0.57 0.135 38)"
-                      : "oklch(0.57 0.135 38)",
+                    color: "oklch(0.57 0.135 38)",
                     textTransform: "uppercase",
                     letterSpacing: "0.14em",
                     fontSize: "0.68rem",
@@ -1833,25 +1870,33 @@ function WorkCtaAct() {
 // ─── Page ────────────────────────────────────────────
 
 export default function WorkPage() {
+  useEffect(() => {
+    document.title = "Work | Studio34 Automotive & Product Design Projects";
+
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute(
+        "content",
+        "Explore Studio34's automotive, mobility, product design and prototype development work across concept design, surfacing, CMF and full-scale development programs.",
+      );
+  }, []);
+
   return (
     <main>
-      {/* ── Hero ── */}
       <section
         id="work-hero"
         style={{ scrollMarginTop: "80px" }}
         className="relative overflow-hidden min-h-[68svh] md:min-h-[82vh]"
       >
-        {/* Background image */}
-     <img
-  src="/assets/workpagehero/Work_Hero.webp"
-  alt="Prototype build in process"
-  className="absolute inset-0 w-full h-full object-cover"
-  style={{ objectPosition: "center center" }}
-/>
-        
-<div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/85 to-transparent pointer-events-none" />
-        
-        {/* Left-dark to right-light gradation */}
+        <img
+          src="/assets/workpagehero/Work_Hero.webp"
+          alt="Prototype build in process"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: "center center" }}
+        />
+
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/85 to-transparent pointer-events-none" />
+
         <div
           className="absolute inset-0"
           style={{
@@ -1860,7 +1905,7 @@ export default function WorkPage() {
             pointerEvents: "none",
           }}
         />
-        {/* Subtle bottom fade into gradient bridge */}
+
         <div
           className="absolute bottom-0 left-0 right-0"
           style={{
@@ -1871,7 +1916,6 @@ export default function WorkPage() {
           }}
         />
 
-        {/* PAGE TITLE */}
         <div
           style={{
             position: "absolute",
@@ -1901,6 +1945,7 @@ export default function WorkPage() {
             >
               OUR WORK
             </h1>
+
             <div className="flex items-center gap-4">
               <span
                 style={{
@@ -1914,6 +1959,7 @@ export default function WorkPage() {
               >
                 काम
               </span>
+
               <div
                 style={{
                   height: "1px",
@@ -1924,6 +1970,7 @@ export default function WorkPage() {
               />
             </div>
           </div>
+
           <p
             style={{
               fontFamily: "Barlow, sans-serif",
@@ -1935,8 +1982,11 @@ export default function WorkPage() {
               maxWidth: "56ch",
             }}
           >
-            A sharper look at Studio34 across services, selected projects and client trust — built to show capability without turning the page into noise.
+            A sharper look at Studio34 across services, selected projects and
+            client trust — built to show capability without turning the page
+            into noise.
           </p>
+
           <p
             style={{
               fontFamily: "Barlow, sans-serif",
@@ -1953,7 +2003,6 @@ export default function WorkPage() {
         </div>
       </section>
 
-      {/* Dark-to-light gradient bridge */}
       <div
         aria-hidden="true"
         style={{
@@ -1964,9 +2013,8 @@ export default function WorkPage() {
         }}
       />
 
-      {/* Section index — Work */}
       <nav
-      className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 flex-col gap-4 z-40 pointer-events-auto"
+        className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 flex-col gap-4 z-40 pointer-events-auto"
         aria-label="Section index"
       >
         {[
@@ -1987,10 +2035,10 @@ export default function WorkPage() {
               transition: "opacity 0.2s",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
+              e.currentTarget.style.opacity = "1";
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.opacity = "0.35";
+              e.currentTarget.style.opacity = "0.35";
             }}
           >
             <span
@@ -2003,6 +2051,7 @@ export default function WorkPage() {
                 display: "inline-block",
               }}
             />
+
             <span
               style={{
                 fontFamily: "Barlow, sans-serif",
@@ -2018,6 +2067,7 @@ export default function WorkPage() {
           </a>
         ))}
       </nav>
+
       <ServicesAct />
       <VisualDivider />
       <PortfolioAct />
